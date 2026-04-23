@@ -389,7 +389,7 @@ function renderAtt(m,y,shift){
       const key=`${e.id}|${ds}|${shift}`;
       const rec=attCache[key];
       let status=rec?rec.status:'';
-      if(sat&&!status) status='H';
+     if(!sat&&status==='H'&&!rec) status='';
       const cls=SCLS[status]||'';
       const lbl=SLBL[status]||'·';
       const oth=rec?parseFloat(rec.ot_hours||0):0;
@@ -415,7 +415,7 @@ async function cycleAtt(empId, date, shift, currentStatus){
   let next=CYCLE[currentStatus]||'P';
   // Saturday pe sirf H aur P allow karo
   if(sat&&next==='A') next='H';
-  if(sat&&next==='X') next='';
+  if(sat&&next==='X') next='P';
 
   const key=`${empId}|${date}|${shift}`;
   if(!next){
